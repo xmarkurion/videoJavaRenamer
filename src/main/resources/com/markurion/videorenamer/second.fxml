@@ -55,12 +55,13 @@
       <Button fx:id="btnRename" disable="true" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#btnRename" prefHeight="25.0" prefWidth="261.0" text="Rename Video Files" />
       <Button fx:id="btnBurn" disable="true" layoutX="323.0" layoutY="418.0" mnemonicParsing="false" onAction="#btnBurn" prefHeight="25.0" prefWidth="261.0" text="Rename &amp; Burn Video Title on videos" />
       <ProgressIndicator fx:id="progressCircle" layoutX="42.0" layoutY="454.0" progress="0.0" />
-      <Label fx:id="labelProgress" alignment="CENTER" layoutX="78.0" layoutY="454.0" prefHeight="25.0" prefWidth="507.0" text="LabelProgress" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="labelProgress" alignment="CENTER" layoutX="78.0" layoutY="454.0" prefHeight="25.0" prefWidth="379.0" text="LabelProgress" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <CheckBox fx:id="checkBoxAddTitle" layoutX="13.0" layoutY="180.0" mnemonicParsing="false" onAction="#checkBoxActionHandler" text="Add title on top." />
       <TextField fx:id="fieldVideoTitle" disable="true" layoutX="131.0" layoutY="176.0" prefHeight="25.0" prefWidth="455.0" />
+      <Button fx:id="btnOpenOutputFolder" disable="true" layoutX="461.0" layoutY="454.0" mnemonicParsing="false" onAction="#setBtnOpenOutputFolderHandler" text="Open Output Folder" />
    </children>
 </AnchorPane>

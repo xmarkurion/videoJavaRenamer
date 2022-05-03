@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SecondController {
+    @FXML private Button btnOpenOutputFolder;
     @FXML private Button btnOutFolder;
     @FXML private CheckBox checkBoxAddTitle;
     @FXML private TextField fieldVideoTitle;
@@ -106,6 +107,7 @@ public class SecondController {
             statusLabel.setText("Please select Copy or Move.");
             folderActionBtn(false);
             btnOutFolder.setDisable(true);
+            btnOpenOutputFolder.setDisable(false);
         }
     }
 
@@ -378,5 +380,9 @@ public class SecondController {
             fieldVideoTitle.clear();
         }
 
+    }
+
+    public void setBtnOpenOutputFolderHandler(ActionEvent e) throws IOException {
+        Desktop.getDesktop().open(new File(outFolder.getPath()));
     }
 }
