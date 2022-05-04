@@ -11,3 +11,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 /Resourced
 /out
+Armstrong.otf
+ffmpeg.exe
+file.csv
