@@ -1,14 +1,12 @@
 package com.markurion.videorenamer;
 
+import com.itextpdf.text.DocumentException;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,10 +16,16 @@ public class Test {
 
     private static final String FILE_NAME = "/MyFirstExcel.xlsx";
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("Before Video test");
-       // videotest();
-        System.out.println("Ater video test....");
+    public static void main(String[] args) throws IOException, DocumentException {
+        System.out.println("Before test");
+        pdfTest();
+        System.out.println("After test....");
+    }
+
+    public static void pdfTest() throws DocumentException, FileNotFoundException {
+        PdfMaster pdf = new PdfMaster("grator");
+        pdf.generatePDF();
+
     }
 
     public static void videotest() throws IOException, InterruptedException {

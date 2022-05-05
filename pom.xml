@@ -47,32 +47,13 @@
             <artifactId>commons-csv</artifactId>
             <version>1.5</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.bramp.ffmpeg</groupId>-->
-<!--            <artifactId>ffmpeg</artifactId>-->
-<!--            <version>0.7.0</version>-->
-<!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--            <version>1.7.36</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-log4j12</artifactId>-->
-<!--            <version>1.7.36</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.kokorin.jaffree</groupId>-->
-<!--            <artifactId>jaffree</artifactId>-->
-<!--            <version>0.11.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--            <version>1.7.25</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
