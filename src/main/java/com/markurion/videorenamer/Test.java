@@ -23,8 +23,8 @@ public class Test {
     }
 
     public static void pdfTest() throws DocumentException, FileNotFoundException {
-        PdfMaster pdf = new PdfMaster("grator");
-        pdf.generatePDF();
+//        PdfMaster pdf = new PdfMaster("grator");
+//        pdf.generatePDF();
 
     }
 

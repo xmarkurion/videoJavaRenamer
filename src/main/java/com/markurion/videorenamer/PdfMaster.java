@@ -30,17 +30,28 @@ public class PdfMaster {
 
     private static Document document = new Document();
 
-    public PdfMaster(String filename) {
-        this.workingDirString = System.getProperty("user.dir");
+    public PdfMaster(String filename,
+                     ArrayList<String> oldNames,
+                     ArrayList<String> newNames,
+                     String workingDirString)
+    {
+        //this.workingDirString = System.getProperty("user.dir");
+        this.workingDirString = workingDirString;
         this.pdfFileName = filename + ".pdf";
         this.optionalVideoTitle = null;
 
-        this.oldNames = oldNamesArray();
-        this.newNames = newNamesArray();
+//        this.oldNames = oldNamesArray();
+//        this.newNames = newNamesArray();
+        this.oldNames = oldNames;
+        this.newNames = newNames;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy").withZone(ZoneId.systemDefault());
         Instant instant = Instant.now();
         this.formatedDate = formatter.format(instant);
+    }
+
+    public void setOptionalVideoTitle(String optionalVideoTitle){
+        this.optionalVideoTitle = optionalVideoTitle;
     }
 
     public void generatePDF() throws FileNotFoundException, DocumentException {
@@ -137,9 +148,9 @@ public class PdfMaster {
 
     private ArrayList<ArrayList<String>> doubleArraylistNames() {
         ArrayList<ArrayList<String>> names = new ArrayList<>();
-        names.add(oldNames);
-        names.add(newNames);
-        return names;
+            names.add(oldNames);
+            names.add(newNames);
+            return names;
     }
 
 
