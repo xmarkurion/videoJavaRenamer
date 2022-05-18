@@ -249,7 +249,6 @@ public class SecondController {
     public void btnRename(ActionEvent e) throws IOException, DocumentException {
         System.out.println("Btn Rename Clicked! .... ");
 
-
         progressCircle.setVisible(true);
         labelProgress.setVisible(true);
         resetCounter();
@@ -266,19 +265,13 @@ public class SecondController {
 
             //Solve the issue with unexpected javaFX exception
             Platform.runLater(() -> {
-                System.out.println("Processing file: " + this.tempString);
-                labelProgress.setText(tempString);
+//                System.out.println("Processing file: " + this.tempString);
+//                labelProgress.setText(tempString);
                 if (progressCircle.getProgress() == 100) {
                     labelProgress.setText("All " + modNames.size() + " files are processed. Have a nice Day!");
-                    try {
-                        Desktop.getDesktop().open(new File(renamedFolderPath));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
                 }
             });
         };
-
 
         AtomicInteger q = new AtomicInteger();
         mainFileList.forEach(file -> {
@@ -289,7 +282,16 @@ public class SecondController {
             System.out.println("  Dest: " + dest);
 
             this.tempString = modNames.get(q.get());
-            new Thread(counter).start();
+            //new Thread(counter).start();
+
+            Thread count = new Thread(counter);
+            count.start();
+
+            try {
+                count.join(0);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
 
             //If file is not in the folder already.
             if (!Files.exists(dest)) {
@@ -304,15 +306,30 @@ public class SecondController {
         });
         q.set(0);
 
-        generatePDF(null,renamedFolderPath);
+        Runnable gen = () -> {
+            try {
+                generatePDF(null,renamedFolderPath);
+            } catch (DocumentException | FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        };
+
+        Thread genn = new Thread(gen);
+        genn.start();
+
         Desktop.getDesktop().open(new File(renamedFolderPath));
+
+    }
+
+    private ArrayList<String> getMainFileListInStringArray(){
+        ArrayList<String> oldNames = new ArrayList<>();
+        mainFileList.forEach(file -> oldNames.add(file.getName()));
+        return oldNames;
     }
 
     public void generatePDF(String title,String dir) throws DocumentException, FileNotFoundException {
-        ArrayList<String> oldNames = new ArrayList<>();
-        mainFileList.forEach(file -> oldNames.add(file.getName()));
         String now = "" + System.currentTimeMillis();
-        PdfMaster pdf = new PdfMaster("Rename_report_"+now, oldNames, modNames, dir);
+        PdfMaster pdf = new PdfMaster("Rename_report_" +now, getMainFileListInStringArray(), modNames, dir);
 
         if(title != null){
             pdf.setOptionalVideoTitle(title);
@@ -399,7 +416,6 @@ public class SecondController {
                         }
                     }
 
-
                 }
                 q.getAndIncrement();
                 this.counter++;
@@ -421,7 +437,6 @@ public class SecondController {
             fieldVideoTitle.setDisable(true);
             fieldVideoTitle.clear();
         }
-
     }
 
     public void setBtnOpenOutputFolderHandler(ActionEvent e) throws IOException {

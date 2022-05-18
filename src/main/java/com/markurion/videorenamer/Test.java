@@ -18,13 +18,24 @@ public class Test {
 
     public static void main(String[] args) throws IOException, DocumentException {
         System.out.println("Before test");
-        pdfTest();
+//        pdfTest();
+
+        int x = 0;
+        int y = 2;
+        String buy = "bitcoin"; System.out.println(buy.substring(x, x+1) + buy.substring(y, y+2));
+        System.out.println("buy = " + buy);
         System.out.println("After test....");
     }
 
     public static void pdfTest() throws DocumentException, FileNotFoundException {
-//        PdfMaster pdf = new PdfMaster("grator");
-//        pdf.generatePDF();
+        ArrayList<String> in = new ArrayList<>();
+        ArrayList<String> out = new ArrayList<>();
+        in.add("1.AVI");
+        in.add("2.AVI");
+        out.add("hakunamatata1.mp4");
+        out.add("hakunamatata2.mp4");
+        PdfMaster pdf = new PdfMaster("pator",in,out,System.getProperty("user.dir"));
+        pdf.generatePDF();
 
     }
 

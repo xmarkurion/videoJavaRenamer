@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class PdfMaster {
+    private boolean state;
 
     private String optionalVideoTitle;
     private String pdfFileName;
@@ -28,13 +29,15 @@ public class PdfMaster {
     private static final Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
     private static final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
-    private static Document document = new Document();
+    private static Document document;
 
     public PdfMaster(String filename,
                      ArrayList<String> oldNames,
                      ArrayList<String> newNames,
                      String workingDirString)
     {
+        this.document  = new Document();
+        this.state = false;
         //this.workingDirString = System.getProperty("user.dir");
         this.workingDirString = workingDirString;
         this.pdfFileName = filename + ".pdf";
@@ -54,6 +57,10 @@ public class PdfMaster {
         this.optionalVideoTitle = optionalVideoTitle;
     }
 
+    public boolean getState(){
+        return state;
+    }
+
     public void generatePDF() throws FileNotFoundException, DocumentException {
         PdfWriter.getInstance(document, new FileOutputStream(workingDirString + "\\" + pdfFileName));
         document.open();
@@ -63,6 +70,7 @@ public class PdfMaster {
         createTable();
 
         document.close();
+        this.state = true;
     }
 
     private void setPdfProperties() {
