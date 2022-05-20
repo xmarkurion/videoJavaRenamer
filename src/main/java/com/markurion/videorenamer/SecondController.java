@@ -70,6 +70,7 @@ public class SecondController {
 
     private boolean namesStatus;
     private ArrayList<String> modNames;
+    private ArrayList<String> pdfBurnedNames;
 
     private File outFolder;
     private ArrayList<File> mainFileList;
@@ -92,6 +93,7 @@ public class SecondController {
         namesStatus = false;
         counter = 0;
         tempString = "";
+        pdfBurnedNames = new ArrayList<>();
     }
 
     @FXML
@@ -215,6 +217,9 @@ public class SecondController {
     public void populateListView() throws IOException {
         listView.getItems().clear();
         modNames = csvMaster.readCSV();
+        modNames.forEach(name->{
+            pdfBurnedNames.add( name.substring(0,name.lastIndexOf("."))+ ".mp4");
+        });
         this.namesStatus = false;
 
         //Check if amount is the same
@@ -308,7 +313,7 @@ public class SecondController {
 
         Runnable gen = () -> {
             try {
-                generatePDF(null,renamedFolderPath);
+                generatePDF(null,renamedFolderPath,false);
             } catch (DocumentException | FileNotFoundException ex) {
                 ex.printStackTrace();
             }
@@ -327,10 +332,19 @@ public class SecondController {
         return oldNames;
     }
 
-    public void generatePDF(String title,String dir) throws DocumentException, FileNotFoundException {
+    public void generatePDF(String title,String dir, boolean burned) throws DocumentException, FileNotFoundException {
         String now = "" + System.currentTimeMillis();
-        PdfMaster pdf = new PdfMaster("Rename_report_" +now, getMainFileListInStringArray(), modNames, dir);
+        //Renaming to mp4 if burned is true
+        if(burned){
+            PdfMaster pdf = new PdfMaster("Rename_report_" +now, getMainFileListInStringArray(), pdfBurnedNames, dir);
+            preGeneratePDF(title,pdf);
+        }else {
+            PdfMaster pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), modNames, dir);
+            preGeneratePDF(title,pdf);
+        }
+    }
 
+    private void preGeneratePDF(String title, PdfMaster pdf) throws DocumentException, FileNotFoundException {
         if(title != null){
             pdf.setOptionalVideoTitle(title);
         }
@@ -422,6 +436,25 @@ public class SecondController {
             });
         };
         new Thread(k).start();
+
+        Runnable pdftask = () -> {
+            if (!checkBoxAddTitle.isSelected()){
+                try {
+                    generatePDF(null, burnedFolderPath,true);
+                } catch (DocumentException | FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }else{
+                try {
+                    generatePDF(fieldVideoTitle.getText(), burnedFolderPath,true);
+                } catch (DocumentException | FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        };
+
+        new Thread(pdftask).start();
 
     }
 
