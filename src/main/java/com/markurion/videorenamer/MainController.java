@@ -8,16 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MainController {
@@ -50,12 +47,27 @@ public class MainController {
         //For testing
         inFolder = new File("C:\\Users\\Marcepan\\Downloads\\video");
         testVideoPath();
+
+        // TODO: Check if config file exist inside a folder and if go to scene 2  ( VideoList.csv )
     }
 
     public void btnGetPathClick() throws IOException {
         inFolder = helper.pickFolderDBB(textVideoPath,stage);
         System.out.println("news = " + inFolder);
-        testVideoPath();
+
+        if(testIsConfigFileInTheFolder()){
+            infoField.setText("Found configuration file.");
+        }else {
+            testVideoPath();
+        }
+    }
+
+    /*
+        Checks is configuration file already in the folder and if is stage 2 is loaded.
+     */
+    public boolean testIsConfigFileInTheFolder(){
+        File configFile = new File(inFolder + "/VideoList.csv");
+        return configFile.exists();
     }
 
     public void testVideoPath(){
