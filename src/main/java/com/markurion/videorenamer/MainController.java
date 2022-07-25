@@ -45,8 +45,8 @@ public class MainController {
         infoField.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-font-size: 13;");
 
         //For testing
-        inFolder = new File("C:\\Users\\Marcepan\\Downloads\\video");
-        testVideoPath();
+        //inFolder = new File("C:\\Users\\Marcepan\\Downloads\\video");
+        //testVideoPath();
 
         // TODO: Check if config file exist inside a folder and if go to scene 2  ( VideoList.csv )
     }
@@ -72,9 +72,10 @@ public class MainController {
 
     public void testVideoPath(){
         videoFiles = new FileMaster(Paths.get(inFolder.getPath()));
-        System.out.println("Amount of video files in folder: " + videoFiles.videoFilesInFolder());
-
         videosAmount = videoFiles.videoFilesInFolder();
+
+        System.out.println("Amount of video files in folder: " + videosAmount);
+
         if(videosAmount == 0){
             textVideoPath.setStyle("-fx-control-inner-background: red");
             infoField.setText("The input folder does not contains anny video's");

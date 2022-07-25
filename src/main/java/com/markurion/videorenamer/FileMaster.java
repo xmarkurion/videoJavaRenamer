@@ -40,7 +40,6 @@ public class FileMaster {
                 .filter(Files::isRegularFile)
                 .forEach((pathToFile)->{
                     File currentFile = new File("" + pathToFile);
-                    System.out.println(""+ pathToFile + " | Is avi: " + endsWithTest(currentFile,".AVI") );
                     listOfFiles.add(currentFile);
                 });
         }catch (IOException exception){
@@ -73,11 +72,15 @@ public class FileMaster {
      * @return amount of AVI, avi files in folder.
      */
     public int videoFilesInFolder(){
+        videoFilesCounter = 0;
         listOfFiles.forEach((e)->{
-            if(endsWithTest(e,".AVI") || endsWithTest(e,".avi")) {
-                System.out.println("AVI: " + e);
+            if(isVideoFile(e)){
                 videoFilesCounter++;
             }
+//            if(endsWithTest(e,".AVI") || endsWithTest(e,".avi")) {
+//                System.out.println("AVI: " + e);
+//                videoFilesCounter++;
+//            }
         });
         return this.videoFilesCounter;
     }

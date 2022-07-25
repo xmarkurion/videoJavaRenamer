@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="videoRenamer" target="18" />
+      <module name="videoRenamer" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
