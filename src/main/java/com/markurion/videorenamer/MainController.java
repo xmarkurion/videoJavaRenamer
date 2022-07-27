@@ -57,6 +57,8 @@ public class MainController {
 
         if(testIsConfigFileInTheFolder()){
             infoField.setText("Found configuration file.");
+            videoFiles = new FileMaster(Paths.get(inFolder + "\\sourceVideos"));
+            videosAmount = videoFiles.videoFilesInFolder();
         }else {
             testVideoPath();
         }
@@ -66,7 +68,7 @@ public class MainController {
         Checks is configuration file already in the folder and if is stage 2 is loaded.
      */
     public boolean testIsConfigFileInTheFolder(){
-        File configFile = new File(inFolder + "/VideoList.csv");
+        File configFile = new File(inFolder + "\\VideoList.csv");
         return configFile.exists();
     }
 
@@ -84,20 +86,8 @@ public class MainController {
         }
     }
 
-//    public void btnGetOutPathClick(){
-//        outFolder = pickFolderDb(textVideoOutPath);
-//        System.out.println("outFolder = " + outFolder);
-//
-//        FileMaster outFiles = new FileMaster(Paths.get(outFolder.getPath()));
-//        if(!outFiles.generatePathBoolean()){
-//            System.out.println("The destination folder is empty");
-//        }else{
-//            System.out.println("The destination folder contains stuff.");
-//        }
-//    }
-
     public void btnExistingClick(ActionEvent e) throws IOException {
-        System.out.println("ExistingClick");
+        System.out.println("NextClick");
         switchToScene(e);
     }
 
