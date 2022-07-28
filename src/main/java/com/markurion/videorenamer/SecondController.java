@@ -83,6 +83,7 @@ public class SecondController {
 
     private int counter;
     private String tempString;
+    private boolean configPresent;
 
 
     public SecondController() {
@@ -94,6 +95,7 @@ public class SecondController {
         namesStatus = false;
         counter = 0;
         tempString = "";
+        configPresent = false;
         pdfBurnedNames = new ArrayList<>();
     }
 
@@ -106,6 +108,7 @@ public class SecondController {
 
     public void loadConfigFilePresentSettings(){
         System.out.println("Loading settings for config found scenario.");
+        configPresent = true;
         this.outFolder = new File(sourceLabel.getText());
         btnOutFolder.setDisable(true);
 
@@ -174,7 +177,14 @@ public class SecondController {
             });
             folderActionBtn(true);
             btnGenExcel.setDisable(false);
-            generateCSVFileAndOpenIt();
+
+
+            if (configPresent){
+               // btnTryReading.fire();
+                System.out.println("Change me im here open Excel file does not work");
+            } else {
+                generateCSVFileAndOpenIt();
+            }
 
         }
     }
