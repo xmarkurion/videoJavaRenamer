@@ -100,6 +100,7 @@ public class MainController {
             secondController.setInFolder(this.inFolder);
             secondController.setVideosAmount(this.videosAmount);
             secondController.setFileInFolder(videoFiles);
+            if(testIsConfigFileInTheFolder()){ secondController.loadConfigFilePresentSettings(); }
 
             stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);

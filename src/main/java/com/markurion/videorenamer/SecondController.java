@@ -84,6 +84,7 @@ public class SecondController {
     private int counter;
     private String tempString;
 
+
     public SecondController() {
         System.out.println("Second Controller - Initialized");
         helper = new MarkurionHelper();
@@ -101,6 +102,18 @@ public class SecondController {
         statusLabel.setText("Please select Output folder.");
         progressCircle.setVisible(false);
         labelProgress.setVisible(false);
+    }
+
+    public void loadConfigFilePresentSettings(){
+        System.out.println("Loading settings for config found scenario.");
+        this.outFolder = new File(sourceLabel.getText());
+        btnOutFolder.setDisable(true);
+
+        textFieldOutFolder.setText(sourceLabel.getText());
+        textFieldOutFolder.setDisable(true);
+
+        btnCopy.setDisable(false);
+        btnCopy.fire();
     }
 
     public void setFileInFolder(FileMaster e) {
