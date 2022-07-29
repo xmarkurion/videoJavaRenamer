@@ -180,8 +180,9 @@ public class SecondController {
 
 
             if (configPresent){
-               // btnTryReading.fire();
-                System.out.println("Change me im here open Excel file does not work");
+                System.out.println("Config present - lets try to read configuration");
+                setExistingCSVFileAndOpenIt();
+                btnOpenOutputFolder.setDisable(false);
             } else {
                 generateCSVFileAndOpenIt();
             }
@@ -228,13 +229,24 @@ public class SecondController {
         populateListView();
     }
 
-    public void generateCSVFileAndOpenIt() throws IOException {
+    private void prepareCSV() throws IOException{
         csvMaster.setPathToCSVFile(outFolder.getPath());
         csvMaster.setOverride(false);
         csvMaster.generateCSV(mainFileList);
+    }
+
+    public void generateCSVFileAndOpenIt() throws IOException {
+        prepareCSV();
         Desktop.getDesktop().open(new File(csvMaster.getFullPathToCsvFile()));
         statusLabel.setText("Please fill CSV document & click -> Try Read CSV ");
         btnTryReading.setDisable(false);
+    }
+
+    public void setExistingCSVFileAndOpenIt() throws IOException {
+        prepareCSV();
+        statusLabel.setText("CSV read from existing data file. ");
+        btnTryReading.setDisable(false);
+        btnTryReading.fire();
     }
 
     public void populateListView() throws IOException {
@@ -293,10 +305,8 @@ public class SecondController {
 
             //Solve the issue with unexpected javaFX exception
             Platform.runLater(() -> {
-//                System.out.println("Processing file: " + this.tempString);
-//                labelProgress.setText(tempString);
                 if (progressCircle.getProgress() == 100) {
-                    labelProgress.setText("All " + modNames.size() + " files are processed. Have a nice Day!");
+                    labelProgress.setText("All " + modNames.size() + " files are processed. Have a great Day!");
                 }
             });
         };
@@ -310,7 +320,6 @@ public class SecondController {
             System.out.println("  Dest: " + dest);
 
             this.tempString = modNames.get(q.get());
-            //new Thread(counter).start();
 
             Thread count = new Thread(counter);
             count.start();
@@ -401,14 +410,6 @@ public class SecondController {
                 if (progressCircle.getProgress() == 100) {
                     labelProgress.setText("All " + modNames.size() + " files are processed. Have a nice Day!");
                     try {
-
-                        //TODO: Fix this pdf generation whlie burn video title.
-//                        if(fieldVideoTitle.getText().length() > 0){
-//                            generatePDF(fieldVideoTitle.getText());
-//                        }else{
-//                            generatePDF(null);
-//                        }
-
                         Desktop.getDesktop().open(new File(burnedFolderPath));
                     } catch (IOException ex) {
                         ex.printStackTrace();
