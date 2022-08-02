@@ -20,10 +20,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SecondController {
@@ -257,6 +256,9 @@ public class SecondController {
         });
         this.namesStatus = false;
 
+        // You can't add same names to set that my way of finding duplicates
+        Set<String> setNames = new HashSet<>();
+
         //Check if amount is the same
         if (modNames.size() == mainFileList.size()) {
             for (int x = 0; x <= modNames.size() - 1; x++) {
@@ -269,15 +271,25 @@ public class SecondController {
                     String fullString = "IN: " + mainFileList.get(x).getName() + "  ||-->||  ENTER NEW NAME PLEASE!";
                     listView.getItems().add(fullString);
                     this.namesStatus = true;
-                } else {
+                }
+                // Here trying to add name that exist will result in false.
+                if (!setNames.add(modNames.get(x))) {
+                    String fullString = "IN: " + mainFileList.get(x).getName() + "  ||-->||  " + modNames.get(x) + " || Duplicate Name!";
+                    listView.getItems().add(fullString);
+                    this.namesStatus = true;
+                }
+                else {
                     String fullString = "IN: " + mainFileList.get(x).getName() + "  ||-->||  " + modNames.get(x);
                     listView.getItems().add(fullString);
                 }
+
             }
         }
 
         if (namesStatus) {
-            statusLabel.setText("One of the names is not provided. Please reopen Excel and change that.");
+            statusLabel.setText("One of the names is not provided. Or the file name is duplicated.");
+            btnRename.setDisable(true);
+            btnBurn.setDisable(true);
         } else {
             statusLabel.setText("All Good If you are happy press |Change Names| OR |Burn Video Title| \"");
             btnRename.setDisable(false);
