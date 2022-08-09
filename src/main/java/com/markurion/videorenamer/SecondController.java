@@ -397,8 +397,8 @@ public class SecondController {
 
     public void btnBurn(ActionEvent e) {
         System.out.println("Btn Burn Clicked! .... ");
-        checkBoxAddTitle.setDisable(true);
-        fieldVideoTitle.setDisable(true);
+        checkBoxAddTitle.setDisable(false);
+        fieldVideoTitle.setDisable(false);
 
         progressCircle.setVisible(true);
         labelProgress.setVisible(true);

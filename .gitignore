@@ -16,3 +16,5 @@ ffmpeg.exe
 file.csv
 *.pdf
 /.idea
+.gitignore.bak
+/src/main/java/com/markurion/videorenamer/Test.java
