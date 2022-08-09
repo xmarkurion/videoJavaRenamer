@@ -379,13 +379,14 @@ public class SecondController {
     public void generatePDF(String title,String dir, boolean burned) throws DocumentException, FileNotFoundException {
         String now = "" + System.currentTimeMillis();
         //Renaming to mp4 if burned is true
+        PdfMaster pdf;
         if(burned){
-            PdfMaster pdf = new PdfMaster("Rename_report_" +now, getMainFileListInStringArray(), pdfBurnedNames, dir);
-            preGeneratePDF(title,pdf);
+            pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), pdfBurnedNames, dir);
+            pdf.setVideoNameBurnedOnVideo(true);
         }else {
-            PdfMaster pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), modNames, dir);
-            preGeneratePDF(title,pdf);
+            pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), modNames, dir);
         }
+        preGeneratePDF(title,pdf);
     }
 
     private void preGeneratePDF(String title, PdfMaster pdf) throws DocumentException, FileNotFoundException {

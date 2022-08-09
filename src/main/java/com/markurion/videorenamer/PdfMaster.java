@@ -16,6 +16,7 @@ public class PdfMaster {
     private boolean state;
 
     private String optionalVideoTitle;
+    private boolean videoNameBurnedOnVideo;
     private String pdfFileName;
     private String workingDirString;
     private ArrayList<String> oldNames;
@@ -42,6 +43,7 @@ public class PdfMaster {
         this.workingDirString = workingDirString;
         this.pdfFileName = filename + ".pdf";
         this.optionalVideoTitle = null;
+        this.videoNameBurnedOnVideo =false;
 
 //        this.oldNames = oldNamesArray();
 //        this.newNames = newNamesArray();
@@ -52,6 +54,8 @@ public class PdfMaster {
         Instant instant = Instant.now();
         this.formatedDate = formatter.format(instant);
     }
+
+    public void setVideoNameBurnedOnVideo(boolean value){ this.videoNameBurnedOnVideo = value;}
 
     public void setOptionalVideoTitle(String optionalVideoTitle){
         this.optionalVideoTitle = optionalVideoTitle;
@@ -89,11 +93,10 @@ public class PdfMaster {
                         ", on " + formatedDate, smallBold));
 
         boolean temp = optionalVideoTitle != null;
-        String yesNo = (temp) ? "YES" : "NO";
-
+        String yesNo = (videoNameBurnedOnVideo) ? "YES" : "NO";
         pre.add(new Paragraph("File name's burned on top of the video: " + yesNo, smallBold));
         if (temp) {
-            pre.add(new Paragraph("Title burned on the video's: " + optionalVideoTitle, smallBold));
+            pre.add(new Paragraph("Global title burned on top of each video: " + optionalVideoTitle, smallBold));
         }
         document.add(pre);
     }
