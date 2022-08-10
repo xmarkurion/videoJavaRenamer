@@ -251,6 +251,8 @@ public class SecondController {
     public void populateListView() throws IOException {
         listView.getItems().clear();
         modNames = csvMaster.readCSV();
+
+        pdfBurnedNames.clear();
         modNames.forEach(name->{
             pdfBurnedNames.add( name.substring(0,name.lastIndexOf("."))+ ".mp4");
         });
