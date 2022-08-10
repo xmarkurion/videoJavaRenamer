@@ -23,33 +23,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        Group root = new Group();
-//        Scene scene = new Scene(root, Color.BLACK);
-//        Image icon = new Image("file:resources/paint.png");
-//
-//        stage.getIcons().add(icon);
-//        stage.setTitle("Video Helper 2022 GUI Edition This time JAVA");
-//        stage.setScene(scene);
-//        stage.setResizable(true);
-//
-//        Text text = new Text();
-//        text.setText("Video starting folder: ");
-//        text.setX(10);
-//        text.setY(100);
-//        text.setFont(Font.font("Arial",50));
-//        text.setFill(Color.LIMEGREEN);
-//        root.getChildren().add(text);
-//
-//        Button button = new Button("Select Directory");
-//        button.setOnAction(e -> {
-//            System.out.println("but");
-//        });
-//
-//        VBox vbox = new VBox(button);
-//        root.getChildren().add(vbox);
-//        stage.show();
-
-//        Image icon = new Image("file:resources/paint.png");
         Image icon = new Image(String.valueOf(getClass().getResource("icon.png")));
         stage.getIcons().add(icon);
 

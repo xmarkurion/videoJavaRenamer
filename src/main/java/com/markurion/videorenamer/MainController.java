@@ -9,7 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -39,16 +41,10 @@ public class MainController {
         System.out.println("Main Controller Initialize Part \n");
     }
 
-    @FXML public void initialize(){
+    @FXML public void initialize() throws IOException {
         helper = new MarkurionHelper();
         infoField.setText("Please select Input folder with scope videos.");
         infoField.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-font-size: 13;");
-
-        //For testing
-        //inFolder = new File("C:\\Users\\Marcepan\\Downloads\\video");
-        //testVideoPath();
-
-        // TODO: Check if config file exist inside a folder and if go to scene 2  ( VideoList.csv )
     }
 
     public void btnGetPathClick() throws IOException {
@@ -86,9 +82,28 @@ public class MainController {
         }
     }
 
+    public void btnInfoClicked(ActionEvent e) throws IOException{
+        showInfoScene();
+    }
+
     public void btnExistingClick(ActionEvent e) throws IOException {
         System.out.println("NextClick");
         switchToScene(e);
+    }
+
+    public void showInfoScene() throws IOException{
+        FXMLLoader infoLoader = new FXMLLoader(getClass().getResource("info.fxml"));
+        Image icon = new Image(String.valueOf(getClass().getResource("info.png")));
+        root = infoLoader.load();
+        Scene scene = new Scene(root);
+        Stage stageinfo = new Stage();
+        InfoController infoController = infoLoader.getController();
+        infoController.setStage(stageinfo);
+        stageinfo.getIcons().add(icon);
+        stageinfo.setScene(scene);
+        stageinfo.setResizable(false);
+        stageinfo.setTitle("Info");
+        stageinfo.show();
     }
 
     public void switchToScene(ActionEvent e) throws IOException{
