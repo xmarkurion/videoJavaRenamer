@@ -28,11 +28,11 @@ public class InfoController {
     private String infoTxt(){
        return "App was created to help with bath renaming. \n" +
                "And renaming & burning video title on top of video. \n" +
-               " \n" +
-               "Lib's used: \n" +
+               "Libraries used: \n" +
                "-> JavaFX \n"+
                "-> FFmpeg \n" +
-               " \n" +
+               "-> Itext7 \n" +
+               "\n" +
                "Done by Markurion Github: xmarkurion";
     }
 }
