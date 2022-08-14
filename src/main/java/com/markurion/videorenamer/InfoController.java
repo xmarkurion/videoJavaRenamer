@@ -26,8 +26,8 @@ public class InfoController {
     }
 
     private String infoTxt(){
-       return "App was created to help with bath renaming. \n" +
-               "And renaming & burning video title on top of video. \n" +
+       return "App was created to help with batch renaming. \n" +
+               "And renaming & burning video title on top of videos. \n" +
                "Libraries used: \n" +
                "-> JavaFX \n"+
                "-> FFmpeg \n" +
