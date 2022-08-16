@@ -1,13 +1,30 @@
-<p align="center"><img src="http://www.markurion.eu/wp-content/uploads/2017/01/unnamed.gif"></p>
+<p align="center">![Logo](/readme/m.gif)</p>
 
 # video Java Renamer 2022
 ###### If you want to run it please look at the instruction in how to section.
 
 ## 
+This app was created to help with renaming multiple video files in
+batches. Point to location of video, “Pick Video Folder”. And the app
+will copy or move the files depends of choice. Then rename or rename and burn the video name on top of the video. Additionally option to provide custom title that will appear on top of video. There is
+also an way to go back if app will be terminated. App could reopen
+settings from con-fig file, just point to “Out folder” location. Another
+feature is that it creates PDF report of renaming action so tracking
+the changes is possible.
+
+More read in pdf
+![PDF](/readme/InfoPDF.pdf)
+
 Stuff used...
 -FFFmpeg
 -Maven 
 -javaFX
+
+## GUI preview
+![Menu](/readme/1.jpg)
+
+![Body](/readme/2.jpg)
+
 
 ## Requirements
 This app requires Java 18 .. If you install java 18 it should work for you too.
