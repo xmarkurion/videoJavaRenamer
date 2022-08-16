@@ -12,8 +12,7 @@ settings from con-fig file, just point to “Out folder” location. Another
 feature is that it creates PDF report of renaming action so tracking
 the changes is possible.
 
-More read in pdf
-![PDF](/readme/InfoPDF.pdf)
+Read more in [PDF](/readme/InfoPDF.pdf) 
 
 Stuff used...
 -FFFmpeg
