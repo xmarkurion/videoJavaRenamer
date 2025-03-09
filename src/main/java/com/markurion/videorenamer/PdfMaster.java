@@ -81,7 +81,7 @@ public class PdfMaster {
         document.addTitle("Renamed Videos");
         document.addSubject("List of videos renamed on " + this.formatedDate);
         document.addAuthor(System.getProperty("user.name"));
-        document.addCreator("Markurion - Video renamer 2022");
+        document.addCreator("Markurion - Video renamer 2025");
     }
 
     private void addTitlePage() throws DocumentException {
