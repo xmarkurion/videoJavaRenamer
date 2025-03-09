@@ -32,6 +32,7 @@ public class InfoController {
                "-> JavaFX \n"+
                "-> FFmpeg \n" +
                "-> Itext7 \n" +
+               "Version: v1.2" +
                "\n" +
                "Done by Markurion Github: xmarkurion";
     }

@@ -1,7 +1,10 @@
 <p align="center"><img src="http://www.markurion.eu/wp-content/uploads/2017/01/unnamed.gif"></p>
 
-# video Java Renamer 2022
+# video Java Renamer 2025
 ###### If you want to run it please look at the instruction in how to section.
+
+## Features
+- 1.2 version - added new feature to burn time when title contains " (t=00:00) ".
 
 ## 
 This app was created to help with renaming multiple video files in

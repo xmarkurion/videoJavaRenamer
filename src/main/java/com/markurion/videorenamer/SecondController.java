@@ -254,6 +254,7 @@ public class SecondController {
 
         pdfBurnedNames.clear();
         modNames.forEach(name->{
+            name = removeTimeToBurn(name);
             pdfBurnedNames.add( name.substring(0,name.lastIndexOf("."))+ ".mp4");
         });
         this.namesStatus = false;
@@ -328,7 +329,8 @@ public class SecondController {
         AtomicInteger q = new AtomicInteger();
         mainFileList.forEach(file -> {
             Path source = Paths.get(file.getPath());
-            Path dest = Paths.get(renamedFolderPath + "\\" + modNames.get(q.get()));
+            String fileNameCleanedFromTime = removeTimeToBurn(modNames.get(q.get()));
+            Path dest = Paths.get(renamedFolderPath + "\\" + fileNameCleanedFromTime);
 
             System.out.println("Source: " + source);
             System.out.println("  Dest: " + dest);
@@ -386,7 +388,12 @@ public class SecondController {
             pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), pdfBurnedNames, dir);
             pdf.setVideoNameBurnedOnVideo(true);
         }else {
-            pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), modNames, dir);
+            // Foreach modnames remove time to burn
+            ArrayList<String> noTimeToBurnFileNames = new ArrayList<>();
+            this.modNames.forEach(name -> noTimeToBurnFileNames.add(removeTimeToBurn(name)));
+
+
+            pdf = new PdfMaster("Rename_report_" + now, getMainFileListInStringArray(), noTimeToBurnFileNames, dir);
         }
         preGeneratePDF(title,pdf);
     }
@@ -439,10 +446,22 @@ public class SecondController {
 
                 String source = file.getPath();
                 String originalModname = modNames.get(q.get());
-                String destination = burnedFolderPath + "\\" + originalModname;
+
+                // extract from textToBurn and remove time from textToBurn
+                String timetoBurn= "";
+                if (originalModname.contains("(t=")){
+                    timetoBurn = extractTimeToBurn(originalModname);
+                    originalModname = removeTimeToBurn(originalModname);
+                }
+
                 String textToBurn = originalModname.substring(0, originalModname.lastIndexOf("."));
+                String destination = burnedFolderPath + "\\" + originalModname;
+
                 System.out.println("--------");
                 System.out.println(textToBurn);
+                if(!timetoBurn.equals("")){
+                    System.out.println("Time that will be burned: " + timetoBurn);
+                }
                 System.out.println(destination);
 
                 String existedFile = destination.substring(0, destination.lastIndexOf(".")) + ".mp4";
@@ -457,13 +476,13 @@ public class SecondController {
                     // If title is not set
                     if (!checkBoxAddTitle.isSelected()) {
                         try {
-                            VideoMaster tea = new VideoMaster(source, destination, textToBurn);
+                            VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn);
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
                     } else {
                         try {
-                            VideoMaster tea = new VideoMaster(source, destination, textToBurn, fieldVideoTitle.getText());
+                            VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn, fieldVideoTitle.getText());
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
@@ -513,5 +532,20 @@ public class SecondController {
 
     public void setBtnOpenOutputFolderHandler(ActionEvent e) throws IOException {
         Desktop.getDesktop().open(new File(outFolder.getPath()));
+    }
+
+    private String extractTimeToBurn(String originalModname){
+        String timetoBurn= "";
+        if (originalModname.contains("(t=")){
+            timetoBurn = originalModname.substring(originalModname.indexOf("(t=")+3,originalModname.indexOf(")"));
+        }
+        return timetoBurn;
+    }
+
+    private String removeTimeToBurn(String textToBurn){
+        if (textToBurn.contains("(t=")){
+            textToBurn = textToBurn.replace("(t="+extractTimeToBurn(textToBurn)+")","");
+        }
+        return textToBurn;
     }
 }

@@ -15,7 +15,7 @@ public class VideoMaster {
     private File inputFile;
     private File outputFile;
     private String textToBurn;
-
+    private String timetoBurn;
     private String titleToBurn;
 
     private String in;
@@ -35,7 +35,8 @@ public class VideoMaster {
      * @param textToBurn - Text to be burned on the file.
      * @throws IOException
      */
-    public VideoMaster(String in, String out, String textToBurn) throws IOException, InterruptedException {
+    public VideoMaster(String in, String out, String textToBurn, String timeToBurn) throws IOException, InterruptedException {
+        this.timetoBurn = timeToBurn;
         this.done = false;
         this.appDir = System.getProperty("user.dir");
         checkFFmpeg();
@@ -67,7 +68,8 @@ public class VideoMaster {
      * @throws IOException
      * @throws InterruptedException
      */
-    public VideoMaster(String in, String out, String textToBurn, String titleToBurn) throws IOException, InterruptedException {
+    public VideoMaster(String in, String out, String textToBurn, String timeToBurn,String titleToBurn) throws IOException, InterruptedException {
+        this.timetoBurn = timeToBurn;
         this.done = false;
         this.appDir = System.getProperty("user.dir");
         checkFFmpeg();
@@ -105,6 +107,12 @@ public class VideoMaster {
 //                ,"-c:a", "copy"
 //                , this.out
 //        };
+
+        // Prepare Time to burn if exist. It will be burned on title string.
+        if(!timetoBurn.isEmpty()){
+            this.titleToBurn = this.titleToBurn + " Time: " + timetoBurn;
+            this.titleToBurn = this.titleToBurn.replaceAll("\\\\", "\\\\\\\\\\\\\\\\").replaceAll("'", "'\\\\\\\\\\\\\''").replaceAll("%", "\\\\\\\\\\\\%").replaceAll(":", "\\\\\\\\\\\\:");
+          }
 
         //Prepare font location for ffmpeg ......... in format without drive letter
         String fontLocation = String.valueOf(Paths.get(appDir + "\\" + "Armstrong.otf"));

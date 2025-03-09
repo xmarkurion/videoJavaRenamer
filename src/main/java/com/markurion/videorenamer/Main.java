@@ -26,7 +26,7 @@ public class Main extends Application {
         Image icon = new Image(String.valueOf(getClass().getResource("icon.png")));
         stage.getIcons().add(icon);
 
-        stage.setTitle("Video Renamer 2022");
+        stage.setTitle("Video Renamer 2025");
         Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("main.fxml")));
         Scene scene = new Scene(root);
 
