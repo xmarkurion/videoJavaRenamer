@@ -1,16 +1,14 @@
 package com.markurion.videorenamer;
 
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 
 public class VideoMaster {
+    private Mode mode = Mode.MODE1;
+
     private final String appDir;
     private File inputFile;
     private File outputFile;
@@ -28,6 +26,10 @@ public class VideoMaster {
 
     private boolean done;
 
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
+
     /**
      * Takes in file and burns the desired text on top.
      * @param in - String path to source file
@@ -40,8 +42,6 @@ public class VideoMaster {
         this.done = false;
         this.appDir = System.getProperty("user.dir");
         checkFFmpeg();
-       // this.in = in;
-       // this.out = out;
 
         this.overwrite = true;
         this.fontSize = 18;
@@ -53,10 +53,8 @@ public class VideoMaster {
 
         //Transfer any extension to .mp4
         this.out = out.substring(0,out.lastIndexOf(".")) + ".mp4";
-        setup();
 
-//        this.in = "C:\\Users\\Marcepan\\Downloads\\video\\sourceVideosIV000001.AVI";
-//        this.out = "C:\\Users\\Marcepan\\Downloads\\video\\test\\out.mp4";
+        // setup() should be triggered after mode was set from the main controller.
     }
 
     /**
@@ -85,7 +83,6 @@ public class VideoMaster {
 
         //Transfer any extension to .mp4
         this.out = out.substring(0, out.lastIndexOf(".")) + ".mp4";
-        setup();
     }
 
     /**
@@ -98,19 +95,21 @@ public class VideoMaster {
 
     public void setup() throws IOException, InterruptedException {
         Runtime rt = Runtime.getRuntime();
-        // Process builder accept only array so all commands need to be changed to array from arrayList.
-//        String[] commands = {
-//                "ffmpeg",
-//                "-i",
-//                this.in,
-//                "-vf", String.format("drawtext=text='%s':fontsize=18:fontcolor=#00ff1e:borderw=1.5:bordercolor=black:x=10:y=55",texting)
-//                ,"-c:a", "copy"
-//                , this.out
-//        };
 
-        // Prepare Time to burn if exist. It will be burned on title string.
+        // Prepare Time to burn if existed. It will be burned on title string.
         if(!timetoBurn.isEmpty()){
-            this.titleToBurn = this.titleToBurn + " Time: " + timetoBurn;
+            if (this.titleToBurn == null){
+                this.titleToBurn = "";
+            }
+
+            if (mode == Mode.MODE2) {
+                this.titleToBurn = timetoBurn + "   " + this.titleToBurn;
+            }
+
+            if (mode == Mode.MODE1) {
+                this.titleToBurn = this.titleToBurn + " Time: " + timetoBurn;
+            }
+
             this.titleToBurn = this.titleToBurn.replaceAll("\\\\", "\\\\\\\\\\\\\\\\").replaceAll("'", "'\\\\\\\\\\\\\''").replaceAll("%", "\\\\\\\\\\\\%").replaceAll(":", "\\\\\\\\\\\\:");
           }
 
@@ -126,6 +125,12 @@ public class VideoMaster {
         arrCommands.add("-i");
         arrCommands.add(this.in);
         arrCommands.add("-vf");
+
+        //Overwrite to turn off the text to burn
+        if(mode == Mode.MODE2)
+        {
+            textToBurn = "";
+        }
 
         if(titleToBurn != null){
             arrCommands.add(String.format(

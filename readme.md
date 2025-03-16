@@ -5,6 +5,11 @@
 
 
 ## Dev Updates
+- 1.3 version
+  - added modes 
+  - M1 - (Default mode) as it was before
+  - M2 - Burns only (t=00:00 string ) and title if box (Add title on top) is checked. 
+
 - 1.2 version
   - added new feature to burn time when title contains " (t=00:00) ".
   - modified pom xml adding maven-shade-plugin to automatically pack the dependencies.

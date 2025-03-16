@@ -62,6 +62,16 @@ public class SecondController {
     private Label videosAmountLabel;
     @FXML
     private TextField textFieldOutFolder;
+    @FXML
+    private Label modeLabel;
+    @FXML
+    private Label labelVersion;
+
+    @FXML
+    private MenuItem mi_1;
+    @FXML
+    private MenuItem mi_2;
+
 
     private Stage stage;
     private Scene scene;
@@ -84,6 +94,7 @@ public class SecondController {
     private String tempString;
     private boolean configPresent;
 
+    private Mode mode;
 
     public SecondController() {
         System.out.println("Second Controller - Initialized");
@@ -96,13 +107,24 @@ public class SecondController {
         tempString = "";
         configPresent = false;
         pdfBurnedNames = new ArrayList<>();
+        mode = Mode.MODE1;
     }
 
     @FXML
     public void initialize() {
+        // set mode to default one
+        modeLabel.setText("M1");
+
         statusLabel.setText("Please select Output folder.");
         progressCircle.setVisible(false);
         labelProgress.setVisible(false);
+
+        // Set mode description text.
+        mi_1.setText("M1 " + Mode.MODE1.getDescription());
+        mi_2.setText("M2 " + Mode.MODE2.getDescription());
+
+        // Set version label
+        labelVersion.setText(Version.NAME + " - " + Version.VERSION);
     }
 
     public void loadConfigFilePresentSettings(){
@@ -477,12 +499,16 @@ public class SecondController {
                     if (!checkBoxAddTitle.isSelected()) {
                         try {
                             VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn);
+                            tea.setMode(mode);
+                            tea.setup();
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
                     } else {
                         try {
                             VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn, fieldVideoTitle.getText());
+                            tea.setMode(mode);
+                            tea.setup();
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
@@ -548,4 +574,17 @@ public class SecondController {
         }
         return textToBurn;
     }
+
+    public void setMenuItem1Handler(ActionEvent e){
+        System.out.println("Mode changed to M1");
+        modeLabel.setText("M1");
+        mode = Mode.MODE1;
+    }
+
+    public void setMenuItem2Handler(ActionEvent e){
+        System.out.println("Mode changed to M2");
+        modeLabel.setText("M2");
+        mode = Mode.MODE2;
+    }
+
 }

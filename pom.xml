@@ -6,7 +6,7 @@
 
     <groupId>com.Markurion</groupId>
     <artifactId>videoRenamer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.3</version>
     <name>videoRenamer</name>
 
     <properties>
