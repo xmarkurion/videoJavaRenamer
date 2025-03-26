@@ -145,9 +145,9 @@ public class VideoMaster {
             ));
         }
 
-        //Do not encode audio just copy it.
+        // Encode audio to aac
         arrCommands.add("-c:a");
-        arrCommands.add("copy");
+        arrCommands.add("aac");
         arrCommands.add("-loglevel");
         arrCommands.add("quiet");
         arrCommands.add(this.out);
@@ -158,7 +158,7 @@ public class VideoMaster {
         this.done = true;
 
         // Uncomment to test Error output.
-        //    outputErrorTest(proc);
+//            outputErrorTest(proc);
     }
 
     /**
