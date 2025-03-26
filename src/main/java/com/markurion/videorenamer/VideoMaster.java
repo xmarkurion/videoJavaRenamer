@@ -25,9 +25,14 @@ public class VideoMaster {
     private boolean overwrite;
 
     private boolean done;
+    private boolean watermark;
 
     public void setMode(Mode mode) {
         this.mode = mode;
+    }
+
+    public void setWatermark(boolean watermark) {
+        this.watermark = watermark;
     }
 
     /**
@@ -117,14 +122,22 @@ public class VideoMaster {
         String fontLocation = String.valueOf(Paths.get(appDir + "\\" + "Armstrong.otf"));
         String replaced = fontLocation.replace("\\","/").substring(2);
 
+        // Prepare image
+        String imageLocation = String.valueOf(Paths.get(appDir + "\\" + "logo.png"));
+        String replacedImage = imageLocation.replace("\\","/").substring(2);
+
         ArrayList<String> arrCommands = new ArrayList<>();
         arrCommands.add(String.valueOf(Paths.get(appDir + "\\" + "ffmpeg.exe")));
 
-        //If arg overwrite add -y to a comand line
+        //If arg overwrite add -y to a command line
         if(overwrite){arrCommands.add("-y");}
         arrCommands.add("-i");
         arrCommands.add(this.in);
-        arrCommands.add("-vf");
+//        arrCommands.add("-vf");
+        arrCommands.add("-i");
+        arrCommands.add(replacedImage);
+        arrCommands.add("-filter_complex");
+
 
         //Overwrite to turn off the text to burn
         if(mode == Mode.MODE2)
@@ -132,15 +145,23 @@ public class VideoMaster {
             textToBurn = "";
         }
 
+        // Enable or disable watermark on demand.
+        String logo = "";
+        if(watermark){
+            logo = logoPosition("right");
+        }
+
         if(titleToBurn != null){
             arrCommands.add(String.format(
-                    "[in]drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d, " +
-                    "drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d [out]"
+                    logo + "drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d, " +
+                    "drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d"
                     ,replaced,titleToBurn,fontSize,fontcolor,x,y ,replaced,textToBurn,fontSize,fontcolor,x,y+20
             ));
+
+
         }else{
             arrCommands.add(String.format(
-                    "drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d"
+                    logo + "drawtext='fontfile=%s':text='%s':fontsize=%d:fontcolor=%s:borderw=0.7:bordercolor=black:x=%d:y=%d"
                     ,replaced,textToBurn,fontSize,fontcolor,x,y
             ));
         }
@@ -181,6 +202,14 @@ public class VideoMaster {
             Files.copy(in, Paths.get(appDir + "\\" + "Armstrong.otf"));
         }
 
+        // If Watermark image do not exist
+        if(!Files.exists(Paths.get(appDir + "\\" + "logo.png"))){
+            System.out.println("Watermark image do not exist -> lets add one.");
+
+            InputStream in = getClass().getResourceAsStream("images/logo.png");
+            Files.copy(in, Paths.get(appDir + "\\" + "logo.png"));
+        }
+
     }
 
     public void outputErrorTest(Process proc) throws IOException {
@@ -200,6 +229,21 @@ public class VideoMaster {
         while ((s = stdError.readLine()) != null) {
             System.out.println(s);
         }
+    }
+
+    /**
+     * Returns the position of the logo. With padding 5
+     * @param position - String left or right
+     * @return String
+     */
+    private String logoPosition(String position){
+        if (position.equals("left")) {
+            return "[1:v]scale=iw*0.6:ih*0.6[wm];[0:v][wm]overlay=5:5,";
+        }
+        if (position.equals("right")) {
+            return "[1:v]scale=iw*0.6:ih*0.6[wm];[0:v][wm]overlay=W-w-5:5,";
+        }
+        return "";
     }
 
 }

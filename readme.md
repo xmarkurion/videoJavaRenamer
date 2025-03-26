@@ -5,6 +5,9 @@
 
 
 ## Dev Updates
+- 1.3.2 version (2025-03-26)
+  - added watermark feature, to replace watermark logo.png 150x72 pix change  file under root folder.
+
 - 1.3.1 version (2025-03-26)
   - Change unsupported audio to codec rendering to aac
 

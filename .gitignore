@@ -17,3 +17,4 @@ file.csv
 /.idea
 .gitignore.bak
 /src/main/java/com/markurion/videorenamer/Test.java
+logo.png

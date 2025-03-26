@@ -33,6 +33,8 @@ public class SecondController {
     @FXML
     private CheckBox checkBoxAddTitle;
     @FXML
+    private CheckBox checkBoxWatermark;
+    @FXML
     private TextField fieldVideoTitle;
     @FXML
     private AnchorPane anchor;
@@ -500,6 +502,7 @@ public class SecondController {
                         try {
                             VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn);
                             tea.setMode(mode);
+                            if(checkBoxWatermark.isSelected()){tea.setWatermark(true);}
                             tea.setup();
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
@@ -508,6 +511,7 @@ public class SecondController {
                         try {
                             VideoMaster tea = new VideoMaster(source, destination, textToBurn, timetoBurn, fieldVideoTitle.getText());
                             tea.setMode(mode);
+                            if(checkBoxWatermark.isSelected()){tea.setWatermark(true);}
                             tea.setup();
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
