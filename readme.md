@@ -5,6 +5,9 @@
 
 
 ## Dev Updates
+- 1.3.1 version (2025-03-26)
+  - Change unsupported audio to codec rendering to aac
+
 - 1.3 version
   - added modes 
   - M1 - (Default mode) as it was before
