@@ -49,12 +49,17 @@ This app requires Java 18 .. If you install java 18 it should work for you too.
 
 ### Main app workflow
 1. Make sure your source videos are somewhere ( USB drive )
-2. Select folder and see if app will find videos in their go to next step.
-3. Select output folder. Then Copy or Move.
-4. Now the app will open an Excel file open it and edi. 
-5. Then click try to read date and make sure all the names are filled.
-6. Now you have 2 option rename files or burn the video names on top of the videos.
-7. You also can add an video title. 
+2. Open app.
+3. Select folder and see if app will find videos in the folder
+4. Then press next step.
+5. Select output folder. Then Copy or Move.
+6. Now the app will open an Excel file if Excel is installed.
+7. Do modification according to PDF guide book and save the files.
+8. Go back to the app -> Click try to read date and make sure all the names are filled.
+9. Now you have 2 option 
+	1. rename files or 
+	2. burn the video names on top of the videos.
+10. You also can add an video title if you like.
 
 ## About
  App icon -> <a href="https://www.flaticon.com/free-icons/paint" title="paint icons">Paint icons created by kmg design - Flaticon</a>
